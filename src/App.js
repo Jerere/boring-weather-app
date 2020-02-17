@@ -3,8 +3,9 @@ import Title from './components/Title';
 import Form from './components/Form';
 import Weather from './components/Weather';
 import { Grid, createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core'
+import OptImage from './components/OptImage';
 
-const API_KEY = "your_api_key_here_:)";
+const API_KEY = "eccb95757151e816e175f45c8f192fda";
 
 let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
@@ -18,6 +19,7 @@ class App extends React.Component {
     humidity: undefined,
     description: undefined,
     id: undefined,
+    image: undefined,
     error: undefined
   }
 
@@ -35,6 +37,7 @@ class App extends React.Component {
         humidity: data.main.humidity,
         description: data.weather[0].description,
         id: data.weather[0].id,
+        image: OptImage(data.weather[0].id),
         error: ""
       })
     }
@@ -46,6 +49,7 @@ class App extends React.Component {
         humidity: undefined,
         description: undefined,
         id: undefined,
+        image: undefined,
         error: data.message
       })
     }
@@ -76,6 +80,7 @@ class App extends React.Component {
                 humidity={this.state.humidity}
                 description={this.state.description}
                 id={this.state.id}
+                image={this.state.image}
               />
             </Grid>
           </Grid>
