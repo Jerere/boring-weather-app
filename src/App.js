@@ -4,8 +4,9 @@ import Form from './components/Form';
 import Weather from './components/Weather';
 import { Grid, createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core'
 import OptImage from './components/OptImage';
+require('dotenv').config();
 
-const API_KEY = "eccb95757151e816e175f45c8f192fda";
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
@@ -24,11 +25,12 @@ class App extends React.Component {
   }
 
   getWeather = async (e) => {
+
     e.preventDefault();
     const city = e.target.elements.city.value;
-    const api_call = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
-    const data = await api_call.json();
-
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
+    const data = await (await fetch(url)).json()
+    
     if (data.cod === 200) {
       this.setState({
         city: data.name,
