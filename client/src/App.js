@@ -28,7 +28,7 @@ class App extends React.Component {
     const city = e.target.elements.city.value;
     const url = `/api/weather/${city}`
     const data = await (await fetch(url)).json();
-    
+      
     if (data.cod === 200) {
       this.setState({
         city: data.name,
