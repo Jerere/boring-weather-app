@@ -11,10 +11,9 @@ const useStyles = makeStyles({
 });
 
 export default function Weather(props) {
-
   const classes = useStyles();
   return (
-    <div style={{ padding: 20 }}>
+    <div>
       {props.image &&
         <Grow in={true}>
           <Box boxShadow={6} borderRadius={16}>
@@ -25,11 +24,9 @@ export default function Weather(props) {
                 image={props.image}
               />
               <CardContent>
-                {props.city && <Typography variant="h3">{props.city}</Typography>}
-                {props.temperature && <Typography variant="body1">Temperature: {props.temperature}°C</Typography>}
-                {props.feels_like && <Typography variant="body1">Feels like: {props.feels_like}°C</Typography>}
-                {props.humidity && <Typography variant="body1">Humidity: {props.humidity}%</Typography>}
-                {props.description && <Typography variant="body1">Description: {props.description}</Typography>}
+                {props.city && <Typography variant="h3" noWrap>{props.city}  {Math.round(props.current.temp)}°C</Typography>}
+                {props.timezone && <Typography variant="body2" >({props.timezone})</Typography>}
+                {props.current && <Typography variant="body1">Temperature: {props.current.temp}°C</Typography>}
               </CardContent>
             </Card>
           </Box>
