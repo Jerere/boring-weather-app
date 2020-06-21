@@ -2,9 +2,10 @@ import React from 'react';
 import Header from './components/Header';
 //import Form from './components/Form';
 import Weather from './components/Weather';
-import { Grid, createMuiTheme, responsiveFontSizes, ThemeProvider} from '@material-ui/core'
+import { Grid, createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core'
 import OptImage from './components/OptImage';
-import Graph from './components/Graph';
+import WeatherChart from './components/WeatherChart';
+import Daily from './components/Daily'
 
 let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
@@ -31,6 +32,7 @@ class App extends React.Component {
     const location = inputLocation.charAt(0).toUpperCase() + inputLocation.slice(1)
 
     if (data.code !== 404) {
+
       this.setState({
         city: location,
         timezone: data.timezone,
@@ -66,19 +68,27 @@ class App extends React.Component {
                 getWeather={this.getWeather}
                 error={this.state.error} />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <Weather
                 city={this.state.city}
                 timezone={this.state.timezone}
                 current={this.state.current}
-                hourly={this.hourly}
-                daily={this.daily}
                 id={this.state.id}
                 image={this.state.image}
               />
             </Grid>
-            <Grid item xs={6}>
-              <Graph />
+            <Grid item xs={12} md={6} >
+              {this.state.hourly &&
+                <WeatherChart
+                  hourly={this.state.hourly}
+                  daily={this.state.daily}
+                />}
+            </Grid>
+            <Grid item xs={12}>
+              {this.state.daily &&
+                <Daily daily={this.state.daily}
+                />
+              }
             </Grid>
           </Grid>
         </ThemeProvider>

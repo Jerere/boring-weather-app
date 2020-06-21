@@ -1,33 +1,45 @@
 import React from 'react';
-import { Card, CardMedia, CardContent, makeStyles, Typography, Box, Grow } from '@material-ui/core';
+import { Card, Box, makeStyles, Typography, Grow, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles({
-  card: {
-    maxWidth: 400,
+  root: {
+    maxWidth: '100%',
+    height: 300,
+    padding: 10,
   },
-  media: {
-    height: 140,
+  image: {
+    maxHeight: '100%'
   },
 });
 
 export default function Weather(props) {
   const classes = useStyles();
+  //const imgUrl = require(`../images/thunder2.jpg`)
+
   return (
     <div>
       {props.image &&
         <Grow in={true}>
-          <Box boxShadow={6} borderRadius={16}>
-            <Card variant="outlined" className={classes.card}>
-              <CardMedia
-                className={classes.media}
-                component="img"
-                image={props.image}
-              />
-              <CardContent>
-                {props.city && <Typography variant="h3" noWrap>{props.city}  {Math.round(props.current.temp)}°C</Typography>}
-                {props.timezone && <Typography variant="body2" >({props.timezone})</Typography>}
-                {props.current && <Typography variant="body1">Temperature: {props.current.temp}°C</Typography>}
-              </CardContent>
+          <Box boxShadow={6} borderRadius={8} >
+          <Card variant="outlined" className={classes.root}>
+            <Grid container>
+              <Grid item xs={6} container>
+                <Grid item xs={12}>
+                  <Typography variant="h3" noWrap> {props.city}  {Math.round(props.current.temp)}°C </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body2" >({props.timezone})</Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body1">Temperature: {props.current.temp}°C</Typography>
+                </Grid>
+              </Grid>
+              <Grid item xs={6} container>
+                <Grid item xs={12}>
+                  image
+                </Grid>
+              </Grid>
+            </Grid>
             </Card>
           </Box>
         </Grow>
