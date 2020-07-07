@@ -23,13 +23,12 @@ class App extends React.Component {
     error: undefined
   }
 
-  getWeather = async (e) => {
+  getWeather = async (coords, locationName) => {
 
-    e.preventDefault();
-    const inputLocation = e.target.elements.city.value;
-    const url = `/api/weather/${inputLocation}`
+    //e.preventDefault();
+    const url = `/api/weather/${coords}`
     const data = await (await fetch(url)).json();
-    const location = inputLocation.charAt(0).toUpperCase() + inputLocation.slice(1)
+    const location = locationName;
 
     if (data.code !== 404) {
 
@@ -69,13 +68,15 @@ class App extends React.Component {
                 error={this.state.error} />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Weather
-                city={this.state.city}
-                timezone={this.state.timezone}
-                current={this.state.current}
-                id={this.state.id}
-                image={this.state.image}
-              />
+              {this.state.daily &&
+                <Weather
+                  city={this.state.city}
+                  timezone={this.state.timezone}
+                  current={this.state.current}
+                  id={this.state.id}
+                  image={this.state.image}
+                />
+              }
             </Grid>
             <Grid item xs={12} md={6} >
               {this.state.hourly &&
@@ -84,7 +85,7 @@ class App extends React.Component {
                   daily={this.state.daily}
                 />}
             </Grid>
-            <Grid item xs={12}>
+              <Grid item xs={12}>
               {this.state.daily &&
                 <Daily daily={this.state.daily}
                 />

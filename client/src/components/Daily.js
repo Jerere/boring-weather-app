@@ -2,7 +2,7 @@ import React from 'react';
 import weatherIcons from '../styles/weather-icons/weatherIcons.json';
 import '../styles/weather-icons/weather-icons.min.css'
 
-import { Card, makeStyles, Box, Typography, GridList, GridListTile, useMediaQuery, useTheme } from '@material-ui/core';
+import { Card, makeStyles, Box, Grid, Typography, GridList, GridListTile, useMediaQuery, useTheme } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,7 +21,10 @@ const useStyles = makeStyles((theme) => ({
         padding: 5,
     },
     box: {
-        marginBottom: 20,
+        margin: 8,
+    },
+    tile: {
+        marginBottom: 12,
     }
 }));
 
@@ -56,10 +59,10 @@ export default function Weekly(props) {
 
     return (
         <div className={classes.root}>
-            <GridList className={classes.gridList} cols={columns(matches)} spacing={12} cellHeight={'auto'}>
+            <GridList className={classes.gridList} cols={columns(matches)} cellHeight={'auto'}>
                 {props.daily.map((day) => (
-                    <GridListTile key={day.dt}>
-                        <Box boxShadow={6} borderRadius={8} className={classes.box}>
+                    <GridListTile key={day.dt} className={classes.tile}>
+                        <Box boxShadow={4} borderRadius={8} className={classes.box}>
                             <Card className={classes.card} variant='outlined'>
                                 <Typography variant="h6" display="inline">
                                     {new Intl.DateTimeFormat('en', dateOptions).format(new Date(day.dt * 1000))}
@@ -67,15 +70,18 @@ export default function Weekly(props) {
                                 <Typography display="inline">
                                     <i className={icon(day.weather[0].id)}></i>
                                 </Typography>
-
-                                <Typography variant="body1">
-                                    Morning: {day.temp.morn}
-                                </Typography>
-                                <Typography variant="body1">
-                                    Day: {day.temp.day}
-                                </Typography><Typography variant="body1">
-                                    Evening: {day.temp.eve}
-                                </Typography>
+                                <Grid container spacing={4}>
+                                    <Grid item xs={4}>
+                                        <Typography>Morning</Typography>
+                                        <Typography>Day</Typography>
+                                        <Typography>Evening</Typography>
+                                    </Grid>
+                                    <Grid item xs={8}>
+                                        <Typography>{day.temp.morn}</Typography>
+                                        <Typography>{day.temp.day}</Typography>
+                                        <Typography>{day.temp.eve}</Typography>
+                                    </Grid>
+                                </Grid>
                             </Card>
                         </Box>
                     </GridListTile>

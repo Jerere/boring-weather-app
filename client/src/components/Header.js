@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Grid, Link, makeStyles, Paper } from '@material-ui/core/';
-import Form from './Form'
+import SearchBar from './SearchBar'
 
 const useStyles = makeStyles(theme => ({
     link: {
@@ -24,9 +24,8 @@ export default function Header(props) {
                     </Grid>
 
                     <Grid item xs={12} md={3}>
-                        <Form
+                        <SearchBar
                             getWeather={props.getWeather}
-                            error={props.error}
                         />
                     </Grid>
                     <Grid item xs={12} md={3}>

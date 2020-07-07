@@ -6,7 +6,7 @@ const useStyles = makeStyles(theme => ({
     chart: {
         fontFamily: 'Arial',
         width: '100%',
-        height: '300px',
+        height: 300,
         margin: 10,
     },
 }))
@@ -56,7 +56,7 @@ export default function WeahterChart(props) {
                     <div className={classes.chart}>
                         <Chart
                             data={data}
-                            axes={axes}
+                            axes={axes} 
                             series={series}
                             tooltip
                             getSeriesStyle={getSeriesStyle}
